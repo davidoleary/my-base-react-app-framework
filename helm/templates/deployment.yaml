@@ -1,0 +1,105 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "name" . }}
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    platform: nodejs
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+        release: {{ .Release.Name }}
+        platform: nodejs
+        env: {{ .Values.environment }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: app-port
+              containerPort: 3147
+          env:
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: nodejs-configs
+                  key: env
+            - name: NODE_MONGO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: nodejs-configs
+                  key: mongoURL
+            - name: NODE_MONGO_RS
+              valueFrom:
+                configMapKeyRef:
+                  name: nodejs-configs
+                  key: mongoRS
+            - name: NODE_MONGO_AUTH_SOURCE
+              valueFrom:
+                configMapKeyRef:
+                  name: nodejs-configs
+                  key: mongoAuthSrc
+            - name: NODE_MONGO_SSL
+              valueFrom:
+                configMapKeyRef:
+                  name: nodejs-configs
+                  key: mongoSSL
+            - name: NODE_HYBRIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: nodejs-configs
+                  key: hybrisHost
+            - name: NODE_NAV_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: nodejs-configs
+                  key: navENV
+            - name: NODE_NAV_ODATA
+              valueFrom:
+                configMapKeyRef:
+                  name: nodejs-configs
+                  key: navODataURL
+            - name: NODE_NAV_SOAP
+              valueFrom:
+                configMapKeyRef:
+                  name: nodejs-configs
+                  key: navSOAPURL
+            - name: NODE_NTLM_PROXY
+              valueFrom:
+                configMapKeyRef:
+                  name: nodejs-configs
+                  key: ntlmProxy
+            - name: NODE_MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.environment }}-secrets-node
+                  key: mongoUser
+            - name: NODE_MONGO_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.environment }}-secrets-node
+                  key: mongoPass
+            - name: NODE_ENC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.environment }}-secrets-node
+                  key: nodeEncKey
+            - name: NODE_HYBRIS_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.environment }}-secrets-node
+                  key: hybrisPapiUser
+            - name: NODE_HYBRIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.environment }}-secrets-node
+                  key: hybrisPapiPass
+      imagePullSecrets:
+        - name: {{ .Values.environment }}-secrets-registry
