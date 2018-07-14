@@ -8,7 +8,8 @@
 * Basic Helm configuration
 * Single command to run front and backend during development
 * Combine backend and frontend test results and coverage 
-* SCSS support set up with hotreloading
+* SCSS support set up with hot reloading
+* Story book setup with examples
 
 Project is made up of two parts:
 * **App**: Web application using React
