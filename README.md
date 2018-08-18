@@ -4,12 +4,13 @@
 * `Puppeteer` for End to end testing in the browser 
 * Frontend and api work together during development
 * Dev Builds do not break for eslint issues
-* Node 8 instead of 6
+* `Node 8` instead of 6
 * Basic Helm configuration
 * Single command to run front and backend during development
 * Combine backend and frontend test results and coverage 
 * SCSS support set up with hot reloading
 * Story book setup with examples
+* `Mockgoose` setup for testing with example. can be used for unit and integration tests
 
 Project is made up of two parts:
 * **App**: Web application using React
