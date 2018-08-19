@@ -4,7 +4,7 @@ import mfLogger from 'mf-logger';
 import { Mockgoose } from 'mockgoose';
 
 const { URI, options } =  {
-  URI: 'mongodb://localhost/GDPR-coordinator',
+  URI: 'mongodb://localhost/mockgoose-example',
 };
 
 mongoose.Promise = global.Promise;
@@ -43,7 +43,7 @@ const close = () => mongoose.disconnect();
 
 
 let open = openRealConnection;
-if (process.env.NODE_ENV === 'unit-test') {
+if (process.env.NODE_ENV === 'test') {
   open = openFake;
 }
 

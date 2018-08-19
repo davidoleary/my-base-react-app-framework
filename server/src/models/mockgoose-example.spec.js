@@ -1,8 +1,8 @@
 import 'isomorphic-fetch';
 import mongoose from 'mongoose';
 import { Mockgoose } from 'mockgoose';
-import MockgooseExampleModel from '../../../src/models/mockgoose-example-model';
-import conn from '../../../src/helpers/mongodb-connect';
+import MockgooseExampleModel from './mockgoose-example-model';
+import conn from '../helpers/mongodb-connect';
 
 const mockgoose = new Mockgoose(mongoose);
 

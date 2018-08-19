@@ -1,6 +1,6 @@
 {
   "name": "testeject",
-  "version": "0.2.0",
+  "version": "0.2.3",
   "private": true,
   "proxy": "http://localhost:3020",
   "scripts": {
@@ -9,7 +9,7 @@
     "start:dev": "concurrently --kill-others-on-fail 'yarn start:server' 'yarn start'",
     "build": "node scripts/build.js",
     "build:server": "webpack --config ./config/webpack.config.server.prod.js",
-    "test": "node scripts/test.js --env=jsdom",
+    "test": "node scripts/test.js a --env=jsdom",
     "coverage": "npm test -- --coverage",
     "test:e2e": "NODE_ENV=test jest -c end-to-end/jest.config.js",
     "serve": "node build/server/main.js"
