@@ -18,6 +18,7 @@ const list = wrap(async (req, res) => {
           },
           {
             name: 'John',
+            date: new Date().toISOString(),
           },
         ],
       })

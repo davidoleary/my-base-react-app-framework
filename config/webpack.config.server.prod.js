@@ -38,7 +38,7 @@ module.exports = {
           {
             options: {
               eslintPath: require.resolve('eslint'),
-
+              emitWarning: true,
             },
             loader: require.resolve('eslint-loader'),
           },

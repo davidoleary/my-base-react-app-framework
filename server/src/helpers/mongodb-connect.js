@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import mfLogger from 'mf-logger';
 import { Mockgoose } from 'mockgoose';
 
-const { URI, options } =  {
+const { URI, options } = {
   URI: 'mongodb://localhost/mockgoose-example',
 };
 
@@ -30,9 +30,11 @@ const openRealConnection = () => new Promise((resolve, reject) =>
 const openFake = () => new Promise(async (resolve, reject) => {
   const mockgoose = new Mockgoose(mongoose);
   await mockgoose.prepareStorage();
-  mongoose.connect(URI, options, (err, res) => {
-    if (err) return reject(err);
-    resolve();
+  mongoose.connect(URI, options, (err) => {
+    if (err) {
+      return reject(err);
+    }
+    return resolve();
   });
 });
 

@@ -11,6 +11,9 @@
 * SCSS support set up with hot reloading
 * Story book setup with examples
 * `Mockgoose` setup for testing with example. can be used for unit and integration tests
+* To make unit testing as easy as possible the unit test files are located beside the files they test.
+* React-Router
+* Redux
 
 Project is made up of two parts:
 * **App**: Web application using React

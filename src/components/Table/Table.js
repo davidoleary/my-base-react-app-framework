@@ -1,12 +1,38 @@
 import React from 'react';
 import { Icon, Label, Menu, Table } from 'semantic-ui-react';
+import _ from 'lodash';
 import 'semantic-ui-css/semantic.min.css';
 import './table.scss';
 
 class TableExample extends React.Component {
+  state = {
+    column: 'productId',
+    data: this.props.rows,
+    direction: null,
+  }
+
+  handleSort = clickedColumn => () => {
+    const { column, data, direction } = this.state
+
+    if (column !== clickedColumn) {
+      this.setState({
+        column: clickedColumn,
+        data: _.sortBy(data, [clickedColumn]),
+        direction: 'ascending',
+      })
+
+      return
+    }
+
+    this.setState({
+      data: data.reverse(),
+      direction: direction === 'ascending' ? 'descending' : 'ascending',
+    })
+  }
+
   render() {
-    const { rows } = this.props;
-    const tableRows = rows.map((row, index) => {
+    const { column, direction, data } = this.state;
+    const tableRows = data.map((row, index) => {
       return (<Table.Row className={row.statusColour} key={index}>
         <Table.Cell>
           <Label ribbon>First</Label>
@@ -32,63 +58,33 @@ class TableExample extends React.Component {
         <Table.Cell>{row.dateTransferredToPhotoStudio}</Table.Cell>
         <Table.Cell>{row.expetedDateIntoBusiness}</Table.Cell>
         <Table.Cell>{row.deliveredDateIntoBusiness}</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
-        <Table.Cell>Cell</Table.Cell>
       </Table.Row>);
     });
 
-    return (<Table celled>
+    return (<Table sortable celled>
       <Table.Header>
         <Table.Row>
+          <Table.HeaderCell></Table.HeaderCell>
+          <Table.HeaderCell
+            sorted={column === 'productId' ? direction : null}
+            onClick={this.handleSort('productId')}>
+            ProductId
+          </Table.HeaderCell>
+          <Table.HeaderCell>Header</Table.HeaderCell>
+          <Table.HeaderCell
+            sorted={column === 'brand' ? direction : null}
+            onClick={this.handleSort('brand')}>
+            Brand
+          </Table.HeaderCell>
           <Table.HeaderCell>Header</Table.HeaderCell>
           <Table.HeaderCell>Header</Table.HeaderCell>
           <Table.HeaderCell>Header</Table.HeaderCell>
           <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
-          <Table.HeaderCell>Header</Table.HeaderCell>
+          <Table.HeaderCell
+            sorted={column === 'hybrisApprovalStatus' ? direction : null}
+            onClick={this.handleSort('hybrisApprovalStatus')}>
+            Hybris Approval Status
+          </Table.HeaderCell>
           <Table.HeaderCell>Header</Table.HeaderCell>
           <Table.HeaderCell>Header</Table.HeaderCell>
           <Table.HeaderCell>Header</Table.HeaderCell>
